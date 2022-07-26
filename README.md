@@ -1,0 +1,2 @@
+# GOAT-Locations
+Solo Project
