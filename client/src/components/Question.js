@@ -41,8 +41,7 @@ const Question = () => {
         <div>
           <h1>THANK YOU FOR YOUR SUBMISSION!</h1>
           <p>
-            The heard is deciding, the winner will be revealed tonight at 10
-            p.m.
+            The herd is deciding, the winner will be revealed tonight at 10 p.m.
           </p>
         </div>
       )}
