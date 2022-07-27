@@ -1,0 +1,22 @@
+{
+  "name": "goat-locations",
+  "version": "1.0.0",
+  "description": "Solo Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pewompa/GOAT-Locations.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pewompa/GOAT-Locations/issues"
+  },
+  "homepage": "https://github.com/Pewompa/GOAT-Locations#readme",
+  "dependencies": {
+    "react-router-dom": "^5.3.3"
+  }
+}
