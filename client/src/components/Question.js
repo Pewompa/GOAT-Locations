@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchLocations, postLocations } from '../services/service';
 
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const Question = () => {
@@ -21,6 +21,7 @@ const Question = () => {
   const handleChange = (event) => {
     setNewLocation(event.target.value);
   };
+
   return (
     <div>
       {!isSubmitted ? (
@@ -30,6 +31,7 @@ const Question = () => {
             <input
               type="search"
               name="search"
+              placeholder="Search Locations"
               value={newLocation}
               onChange={handleChange}
               required
@@ -43,6 +45,11 @@ const Question = () => {
           <p>
             The herd is deciding, the winner will be revealed tonight at 10 p.m.
           </p>
+          <button>
+            {/* This will have to go to maps */}
+
+            <Link to="/winner">Accept</Link>
+          </button>
         </div>
       )}
     </div>
