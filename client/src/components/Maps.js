@@ -93,6 +93,10 @@ const Maps = () => {
               onClick={() => {
                 setSelected(marker);
               }}
+              // icon={{
+              //   // url: '/chineseIcon.png',
+              //   scaledSize: new window.google.maps.Size(30, 30),
+              // }}
             />
           );
         })}

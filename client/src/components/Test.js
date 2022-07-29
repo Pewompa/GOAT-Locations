@@ -39,10 +39,39 @@ const center = {
 const options = {
   styles: mapsStyle,
 };
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/*FUNCTION START*/
+//////////////////////////////////////////////////////////////////////////////////////////
+
 const Test = () => {
   const [locations, setLocations] = useState([]);
   const [newLocation, setNewLocation] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [timeToShow, setTimeToShow] = useState(false);
+
+  useEffect(() => {
+    const time = () => {
+      let hours = new Date().getHours();
+      if (
+        hours === 20 ||
+        hours === 21 ||
+        hours === 22 ||
+        hours === 23 ||
+        hours === 24 ||
+        hours === 1 ||
+        hours === 2 ||
+        hours === 3 ||
+        hours === 4 ||
+        hours === 5 ||
+        hours === 6 ||
+        hours === 7
+      ) {
+        setTimeToShow(!timeToShow);
+      }
+    };
+    time();
+  }, []);
 
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -136,11 +165,12 @@ const Test = () => {
           <p>
             The herd is deciding, the winner will be revealed tonight at 10 p.m.
           </p>
-          <button>
-            {/* This will have to go to maps */}
-
-            <Link to="/winner">Accept</Link>
-          </button>
+          {timeToShow && (
+            <button>
+              {/* This will have to go to maps */}
+              <Link to="/winner">Accept</Link>
+            </button>
+          )}
         </div>
       )}
     </div>
