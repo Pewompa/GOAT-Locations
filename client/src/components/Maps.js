@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { fetchLocations, postLocations } from '../services/service';
-
+import { Loader } from '@googlemaps/js-api-loader';
 import {
   useJsApiLoader,
   GoogleMap,
   Marker,
+  InfoWindow,
   Autocomplete,
   DirectionsRenderer,
 } from '@react-google-maps/api';
@@ -38,12 +39,17 @@ const Maps = () => {
   // }, []);
   const [locations, setLocations] = useState([{}]);
   const [markers, setMarkers] = useState([{}]);
+  const [selected, setSelected] = useState(null);
+  console.log(selected);
   useEffect(() => {
     const goat = () => {
       fetchLocations().then((data) => {
         // setMarkers(data);
         // console.log(data);
-        setMarkers({ lat: data[0].lat, lng: data[0].lng });
+        setMarkers([
+          ...markers,
+          { title: data[0].title, lat: data[0].lat, lng: data[0].lng },
+        ]);
         // setMarkers([data[0].lat, data[0].lng]);
         // console.log(data[0].lat);
       });
@@ -55,15 +61,20 @@ const Maps = () => {
     goat();
   }, []);
   console.log(markers);
-
-  const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: 'AIzaSyDAZNspVfSFWEByUcazI2mG6a-w9N_39qY',
-    // googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries,
-    // process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  const loader = new Loader({
+    apiKey: 'AIzaSyDAZNspVfSFWEByUcazI2mG6a-w9N_39qY',
+    version: 'weekly',
+    libraries: ['places'],
   });
-  if (loadError) return 'Error loading maps';
-  if (!isLoaded) return 'Loading maps';
+  loader.load();
+  // const { isLoaded, loadError } = useJsApiLoader({
+  //   googleMapsApiKey: 'AIzaSyDAZNspVfSFWEByUcazI2mG6a-w9N_39qY',
+  //   // googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  //   libraries,
+  //   // process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  // });
+  // if (loadError) return 'Error loading maps';
+  // if (!isLoaded) return 'Loading maps';
 
   return (
     <div>
@@ -75,7 +86,31 @@ const Maps = () => {
         center={center}
         options={options}
       >
-        <Marker position={{ lat: markers.lat, lng: markers.lng }} />
+        {markers.map((marker) => {
+          return (
+            <Marker
+              position={{ lat: marker.lat, lng: marker.lng }}
+              onClick={() => {
+                setSelected(marker);
+              }}
+            />
+          );
+        })}
+        {/* <Marker position={{ lat: markers.lat, lng: markers.lng }} /> */}
+        {selected ? (
+          <InfoWindow
+            position={{ lat: selected.lat, lng: selected.lng }}
+            //so that location info can be clicked again after being closed
+            onCloseClick={() => {
+              setSelected(null);
+            }}
+          >
+            <div>
+              <p>GOAT Chinese restaurant:</p>
+              <h2>{selected.title}</h2>
+            </div>
+          </InfoWindow>
+        ) : null}
       </GoogleMap>
     </div>
   );

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.2.4",
+    "@googlemaps/js-api-loader": "^1.14.3",
     "@reach/combobox": "^0.17.0",
     "@react-google-maps/api": "^2.12.1",
     "@syncfusion/ej2-react-dropdowns": "^20.2.40",
