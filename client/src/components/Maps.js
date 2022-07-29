@@ -39,25 +39,30 @@ const Maps = () => {
   // }, []);
   const [locations, setLocations] = useState([{}]);
   const [markers, setMarkers] = useState([{}]);
+  const [markersClub, setMarkersClub] = useState([{}]);
   const [selected, setSelected] = useState(null);
   console.log(selected);
   useEffect(() => {
     const goat = () => {
       fetchLocations().then((data) => {
-        // setMarkers(data);
-        // console.log(data);
+        let clubArr = [];
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].question === 'Club') {
+            clubArr.push(data[i]);
+          }
+        }
+        console.log(clubArr);
         setMarkers([
           ...markers,
           { title: data[0].title, lat: data[0].lat, lng: data[0].lng },
         ]);
-        // setMarkers([data[0].lat, data[0].lng]);
-        // console.log(data[0].lat);
+        setMarkersClub([
+          ...markersClub,
+          { title: clubArr[0].title, lat: clubArr[0].lat, lng: clubArr[0].lng },
+        ]);
       });
-      // const cords = {
-      //   lat: data[0].lat, lng: data[0].lng
-      // }
     };
-    // console.log(markers);
+
     goat();
   }, []);
   console.log(markers);
@@ -87,6 +92,20 @@ const Maps = () => {
         options={options}
       >
         {markers.map((marker) => {
+          return (
+            <Marker
+              position={{ lat: marker.lat, lng: marker.lng }}
+              onClick={() => {
+                setSelected(marker);
+              }}
+              // icon={{
+              //   // url: '/chineseIcon.png',
+              //   scaledSize: new window.google.maps.Size(30, 30),
+              // }}
+            />
+          );
+        })}
+        {markersClub.map((marker) => {
           return (
             <Marker
               position={{ lat: marker.lat, lng: marker.lng }}

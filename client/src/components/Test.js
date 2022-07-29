@@ -49,12 +49,29 @@ const Test = () => {
   const [newLocation, setNewLocation] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [timeToShow, setTimeToShow] = useState(false);
+  const [questionType, setQuestionType] = useState([]);
+  const [goatType, setGoatType] = useState([]);
+
+  useEffect(() => {
+    const days = () => {
+      var hours = new Date().getHours();
+      if (hours === 18) {
+        setQuestionType('Chinese');
+        setGoatType('Chinese restaurant');
+      }
+      if (hours === 21) {
+        setQuestionType('Club');
+        setGoatType('Club');
+      }
+    };
+    days();
+  }, []);
 
   useEffect(() => {
     const time = () => {
       let hours = new Date().getHours();
       if (
-        hours === 20 ||
+        // hours === 20 ||
         hours === 21 ||
         hours === 22 ||
         hours === 23 ||
@@ -65,8 +82,7 @@ const Test = () => {
         hours === 4 ||
         hours === 5 ||
         hours === 6 ||
-        hours === 7 ||
-        hours === 19
+        hours === 20
       ) {
         setTimeToShow(!timeToShow);
       }
@@ -111,7 +127,7 @@ const Test = () => {
               //do post here?
               const { lat, lng } = await getLatLng(results[0]);
 
-              let data = await postLocations(address, lat, lng);
+              let data = await postLocations(address, lat, lng, questionType);
               console.log(data);
               setLocations([...locations, data]);
               console.log(address);
@@ -151,16 +167,13 @@ const Test = () => {
       {!isSubmitted ? (
         !timeToShow ? (
           <div>
-            <p>What is the best Chinese restaurant in Barcelona?</p>
+            <p>What is the best {goatType} in Barcelona?</p>
 
             <Search></Search>
           </div>
         ) : (
           <div>
-            <p>
-              The heard has decided, Barcelona’s GOAT Chinese restaurant is...
-            </p>
-
+            <p>The heard has decided, Barcelona’s GOAT {goatType} is...</p>
             <button>
               <Link to="/winner">Reveal GOAT</Link>
             </button>
@@ -176,6 +189,7 @@ const Test = () => {
             {/* This will have to go to maps */}
             <Link to="/maps">Go to Maps</Link>
           </button>
+          <br />
           <input type="text" placeholder="Suggest a question" />
         </div>
       )}
