@@ -25,8 +25,8 @@ function App() {
             <Winner></Winner>
           </Route>
           <Route path="/maps">
-            {/* <Maps></Maps> */}
-            <MarkerTest></MarkerTest>
+            <Maps></Maps>
+            {/* <MarkerTest></MarkerTest> */}
           </Route>
         </Switch>
       </div>

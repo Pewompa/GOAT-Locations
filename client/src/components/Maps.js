@@ -58,6 +58,7 @@ const Maps = () => {
 
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyDAZNspVfSFWEByUcazI2mG6a-w9N_39qY',
+    // googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
     // process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
@@ -74,7 +75,7 @@ const Maps = () => {
         center={center}
         options={options}
       >
-        <Marker position={{ lat: 41.3911141, lng: 2.1789833 }} />
+        <Marker position={{ lat: markers.lat, lng: markers.lng }} />
       </GoogleMap>
     </div>
   );
