@@ -5,6 +5,7 @@ import Question from './components/Question';
 import Winner from './components/Winner';
 import Maps from './components/Maps';
 import Test from './components/Test';
+import MarkerTest from './components/MarkerTest';
 function App() {
   return (
     <Router>
@@ -17,13 +18,15 @@ function App() {
             </button>
           </Route>
           <Route path="/question">
-            <Question></Question>
+            {/* <Question></Question> */}
+            <Test></Test>
           </Route>
           <Route path="/winner">
             <Winner></Winner>
           </Route>
           <Route path="/maps">
-            <Test></Test>
+            {/* <Maps></Maps> */}
+            <MarkerTest></MarkerTest>
           </Route>
         </Switch>
       </div>

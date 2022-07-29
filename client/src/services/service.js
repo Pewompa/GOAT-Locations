@@ -4,13 +4,13 @@ export const fetchLocations = async () => {
     .catch((e) => console.log(e));
 };
 
-export const postLocations = (title) => {
+export const postLocations = (title, lat, lng) => {
   return fetch('http://localhost:4000/locations', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
     },
-    body: JSON.stringify({ title: title }),
+    body: JSON.stringify({ title: title, lat: lat, lng: lng }),
   })
     .then((response) => response.json())
     .catch((error) => console.log(error));

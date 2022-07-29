@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react';
+import { fetchLocations, postLocations } from '../services/service';
+
 import {
   useJsApiLoader,
   GoogleMap,
@@ -5,21 +8,6 @@ import {
   Autocomplete,
   DirectionsRenderer,
 } from '@react-google-maps/api';
-
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from 'use-places-autocomplete';
-
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxList,
-  ComboboxPopover,
-  ComboboxOption,
-} from '@reach/combobox';
-import { ComboboxComponent } from '@syncfusion/ej2-react-dropdowns';
-import '@reach/combobox/styles.css';
 
 import mapsStyle from '../style/mapsStyle';
 
@@ -35,134 +23,132 @@ const center = {
 const options = {
   styles: mapsStyle,
 };
+//////////////////////////////////////////////////////////////////////////////////////////
+/*FUNCTION START*/
+//////////////////////////////////////////////////////////////////////////////////////////
+
 const Maps = () => {
+  // useEffect(() => {
+  //   setMarkers((current) => [
+  //     ...current,
+  //     {
+  //       lat: event.latLng.lat(),
+  //     },
+  //   ]);
+  // }, []);
+  const [locations, setLocations] = useState([{}]);
+  const [markers, setMarkers] = useState([{}]);
+  useEffect(() => {
+    const goat = () => {
+      fetchLocations().then((data) => {
+        // setMarkers(data);
+        // console.log(data);
+        setMarkers({ lat: data[0].lat, lng: data[0].lng });
+        // setMarkers([data[0].lat, data[0].lng]);
+        // console.log(data[0].lat);
+      });
+      // const cords = {
+      //   lat: data[0].lat, lng: data[0].lng
+      // }
+    };
+    // console.log(markers);
+    goat();
+  }, []);
+  console.log(markers);
+
   const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: 'AIzaSyDAZNspVfSFWEByUcazI2mG6a-w9N_39qY',
     libraries,
     // process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading maps';
 
-  function Search() {
-    const {
-      ready,
-      value,
-      suggestions: { status, data },
-      setValue,
-      clearSuggestions,
-    } = usePlacesAutocomplete({
-      requestOptions: {
-        location: {
-          lat: () => 41.399149,
-          lng: () => 2.1828661,
-        },
-        radius: 5000,
-      },
-    });
-    return (
-      <div>
-        {/* aka form */}
-        <Combobox
-          onSelect={async (address) => {
-            setValue(address, false);
-            clearSuggestions();
-
-            try {
-              const results = await getGeocode({ address });
-              //do post here?
-              console.log(address);
-              const { lat, lng } = await getLatLng(results[0]);
-              //   panTo({ lat, lng });
-            } catch (error) {
-              console.log('😱 Error: ', error);
-            }
-          }}
-        >
-          {/* aka input */}
-          <ComboboxInput
-            value={value}
-            onChange={(e) => {
-              setValue(e.target.value);
-            }}
-            disabled={!ready}
-            placeholder="Enter a location"
-          ></ComboboxInput>
-          <ComboboxPopover>
-            <ComboboxList>
-              {status === 'OK' &&
-                data.map(({ id, description }) => (
-                  <ComboboxOption key={id} value={description} />
-                ))}
-            </ComboboxList>
-          </ComboboxPopover>
-        </Combobox>
-      </div>
-    );
-  }
-
   return (
     <div>
       <h1>Goat Map</h1>
-      <Search></Search>
+      {/* <Search></Search> */}
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={13}
         center={center}
         options={options}
-      ></GoogleMap>
+      >
+        <Marker position={{ lat: 41.3911141, lng: 2.1789833 }} />
+      </GoogleMap>
     </div>
   );
 };
-// import PlacesAutocomplete, {
-//   geocodeByAddress,
-//   getLangLng,
-// } from 'react-places-autocomplete';
-// import { useState, useEffect } from 'react';
-
-// const Maps = () => {
-//   const [address, setAddress] = useState('');
-//   const [name, setName] = useState([]);
-
-//   const handleSelect = async (value) => {
-//     const results = await value;
-//     console.log(results);
-//     setAddress(value);
-//     setName([...name, results]);
-//   };
-
-//   return (
-//     <div>
-//       <PlacesAutocomplete
-//         value={address}
-//         onChange={setAddress}
-//         onSelect={handleSelect}
-//       >
-//         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-//           <div>
-//             <p>Name: {name}</p>
-//             <input {...getInputProps({ placeholder: 'Type location' })}></input>
-//             <div>
-//               {loading ? <div>...loading</div> : null}
-//               {suggestions.map((suggestion) => {
-//                 const style = {
-//                   backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
-//                 };
-//                 return (
-//                   <div {...getSuggestionItemProps(suggestion, { style })}>
-//                     {suggestion.description}
-//                   </div>
-//                 );
-//               })}
-//               {/* {suggestions.map((suggestion) => {
-//                 return <div>{suggestion.description}</div>;
-//               })} */}
-//             </div>
-//           </div>
-//         )}
-//       </PlacesAutocomplete>
-//     </div>
-//   );
-// };
 
 export default Maps;
+// import usePlacesAutocomplete, {
+//   getGeocode,
+//   getLatLng,
+// } from 'use-places-autocomplete';
+
+// import {
+//   Combobox,
+//   ComboboxInput,
+//   ComboboxList,
+//   ComboboxPopover,
+//   ComboboxOption,
+// } from '@reach/combobox';
+// import { ComboboxComponent } from '@syncfusion/ej2-react-dropdowns';
+// import '@reach/combobox/styles.css';
+
+// function Search() {
+//   const {
+//     ready,
+//     value,
+//     suggestions: { status, data },
+//     setValue,
+//     clearSuggestions,
+//   } = usePlacesAutocomplete({
+//     requestOptions: {
+//       location: {
+//         lat: () => 41.399149,
+//         lng: () => 2.1828661,
+//       },
+//       radius: 5000,
+//     },
+//   });
+//   return (
+//     <div>
+//       {/* aka form */}
+//       <Combobox
+//         onSelect={async (address) => {
+//           setValue(address, false);
+//           clearSuggestions();
+
+//           try {
+//             const results = await getGeocode({ address });
+//             //do post here?
+//             console.log(address);
+//             const { lat, lng } = await getLatLng(results[0]);
+//             //   panTo({ lat, lng });
+//           } catch (error) {
+//             console.log('😱 Error: ', error);
+//           }
+//         }}
+//       >
+//         {/* aka input */}
+//         <ComboboxInput
+//           value={value}
+//           onChange={(e) => {
+//             setValue(e.target.value);
+//           }}
+//           disabled={!ready}
+//           placeholder="Enter a location"
+//         ></ComboboxInput>
+//         <ComboboxPopover>
+//           <ComboboxList>
+//             {status === 'OK' &&
+//               data.map(({ id, description }) => (
+//                 <ComboboxOption key={id} value={description} />
+//               ))}
+//           </ComboboxList>
+//         </ComboboxPopover>
+//       </Combobox>
+//     </div>
+//   );
+// }

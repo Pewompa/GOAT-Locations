@@ -1,5 +1,6 @@
 import { fetchLocations, postLocations } from '../services/service';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   useJsApiLoader,
@@ -41,6 +42,8 @@ const options = {
 const Test = () => {
   const [locations, setLocations] = useState([]);
   const [newLocation, setNewLocation] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -76,14 +79,18 @@ const Test = () => {
             try {
               const results = await getGeocode({ address });
               //do post here?
-              let data = await postLocations(address);
+              const { lat, lng } = await getLatLng(results[0]);
+
+              let data = await postLocations(address, lat, lng);
               console.log(data);
               setLocations([...locations, data]);
               console.log(address);
-              const { lat, lng } = await getLatLng(results[0]);
+              setIsSubmitted(!isSubmitted);
+
+              console.log(lat, lng);
               //   panTo({ lat, lng });
             } catch (error) {
-              console.log('😱 Error: ', error);
+              console.log(error);
             }
           }}
         >
@@ -111,14 +118,31 @@ const Test = () => {
 
   return (
     <div>
-      <h1>Goat Map</h1>
-      <Search></Search>
-      {/* <GoogleMap
+      {!isSubmitted ? (
+        <div>
+          <p>What is the best Chinese restaurant in Barcelona?</p>
+
+          <Search></Search>
+          {/* <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={13}
         center={center}
         options={options}
       ></GoogleMap> */}
+        </div>
+      ) : (
+        <div>
+          <h1>THANK YOU FOR YOUR SUBMISSION!</h1>
+          <p>
+            The herd is deciding, the winner will be revealed tonight at 10 p.m.
+          </p>
+          <button>
+            {/* This will have to go to maps */}
+
+            <Link to="/winner">Accept</Link>
+          </button>
+        </div>
+      )}
     </div>
   );
 };
