@@ -65,7 +65,8 @@ const Test = () => {
         hours === 4 ||
         hours === 5 ||
         hours === 6 ||
-        hours === 7
+        hours === 7 ||
+        hours === 19
       ) {
         setTimeToShow(!timeToShow);
       }
@@ -148,29 +149,34 @@ const Test = () => {
   return (
     <div>
       {!isSubmitted ? (
-        <div>
-          <p>What is the best Chinese restaurant in Barcelona?</p>
+        !timeToShow ? (
+          <div>
+            <p>What is the best Chinese restaurant in Barcelona?</p>
 
-          <Search></Search>
-          {/* <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={13}
-        center={center}
-        options={options}
-      ></GoogleMap> */}
-        </div>
+            <Search></Search>
+          </div>
+        ) : (
+          <div>
+            <p>
+              The heard has decided, Barcelona’s GOAT Chinese restaurant is...
+            </p>
+
+            <button>
+              <Link to="/winner">Reveal GOAT</Link>
+            </button>
+          </div>
+        )
       ) : (
         <div>
           <h1>THANK YOU FOR YOUR SUBMISSION!</h1>
           <p>
             The herd is deciding, the winner will be revealed tonight at 10 p.m.
           </p>
-          {timeToShow && (
-            <button>
-              {/* This will have to go to maps */}
-              <Link to="/winner">Accept</Link>
-            </button>
-          )}
+          <button>
+            {/* This will have to go to maps */}
+            <Link to="/maps">Go to Maps</Link>
+          </button>
+          <input type="text" placeholder="Suggest a question" />
         </div>
       )}
     </div>
