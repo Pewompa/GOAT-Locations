@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Question from './components/Question';
 import Winner from './components/Winner';
 import Maps from './components/Maps';
+import Test from './components/Test';
 function App() {
   return (
     <Router>
@@ -22,7 +23,7 @@ function App() {
             <Winner></Winner>
           </Route>
           <Route path="/maps">
-            <Maps></Maps>
+            <Test></Test>
           </Route>
         </Switch>
       </div>

@@ -1,3 +1,6 @@
+import { fetchLocations, postLocations } from '../services/service';
+import { useState, useEffect } from 'react';
+
 import {
   useJsApiLoader,
   GoogleMap,
@@ -35,7 +38,9 @@ const center = {
 const options = {
   styles: mapsStyle,
 };
-const Maps = () => {
+const Test = () => {
+  const [locations, setLocations] = useState([]);
+  const [newLocation, setNewLocation] = useState('');
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -71,6 +76,9 @@ const Maps = () => {
             try {
               const results = await getGeocode({ address });
               //do post here?
+              let data = await postLocations(address);
+              console.log(data);
+              setLocations([...locations, data]);
               console.log(address);
               const { lat, lng } = await getLatLng(results[0]);
               //   panTo({ lat, lng });
@@ -105,64 +113,13 @@ const Maps = () => {
     <div>
       <h1>Goat Map</h1>
       <Search></Search>
-      <GoogleMap
+      {/* <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={13}
         center={center}
         options={options}
-      ></GoogleMap>
+      ></GoogleMap> */}
     </div>
   );
 };
-// import PlacesAutocomplete, {
-//   geocodeByAddress,
-//   getLangLng,
-// } from 'react-places-autocomplete';
-// import { useState, useEffect } from 'react';
-
-// const Maps = () => {
-//   const [address, setAddress] = useState('');
-//   const [name, setName] = useState([]);
-
-//   const handleSelect = async (value) => {
-//     const results = await value;
-//     console.log(results);
-//     setAddress(value);
-//     setName([...name, results]);
-//   };
-
-//   return (
-//     <div>
-//       <PlacesAutocomplete
-//         value={address}
-//         onChange={setAddress}
-//         onSelect={handleSelect}
-//       >
-//         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-//           <div>
-//             <p>Name: {name}</p>
-//             <input {...getInputProps({ placeholder: 'Type location' })}></input>
-//             <div>
-//               {loading ? <div>...loading</div> : null}
-//               {suggestions.map((suggestion) => {
-//                 const style = {
-//                   backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
-//                 };
-//                 return (
-//                   <div {...getSuggestionItemProps(suggestion, { style })}>
-//                     {suggestion.description}
-//                   </div>
-//                 );
-//               })}
-//               {/* {suggestions.map((suggestion) => {
-//                 return <div>{suggestion.description}</div>;
-//               })} */}
-//             </div>
-//           </div>
-//         )}
-//       </PlacesAutocomplete>
-//     </div>
-//   );
-// };
-
-export default Maps;
+export default Test;
