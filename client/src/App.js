@@ -1,4 +1,6 @@
 import './index.css';
+import './App.css';
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Question from './components/Question';
@@ -9,11 +11,15 @@ import MarkerTest from './components/MarkerTest';
 function App() {
   return (
     <Router>
-      <div class="font-mono p-6 max-w-4xl h-96 mt-9 mx-auto bg-yellow-700 rounded-xl shadow-lg flex items-center space-x-4 flex-col ">
+      <div class=" card border-2 p-6 max-w-4xl h-96  mt-20 mx-auto bg-green-450 rounded-xl shadow-lg space-x-4  ">
         <Switch>
           <Route exact path="/">
-            <h1 class="text-white mb-20 text-5xl">Welcome to GOAT Locations</h1>
-            <button className="bg-green-300 px-10 py-5 rounded-lg hover:bg-orange-300 text-white font-medium text-4xl">
+            <h2 className="mt-10 ">WELCOME TO</h2>
+            <h1 class="">
+              <span id="goat">GOAT</span> LOCATIONS
+            </h1>
+            <button className="button mt-20 mr-20">
+              {/* bg-green-300 px-10 py-5 rounded-lg hover:bg-orange-300 text-white font-medium text-4xl */}
               <Link to="/question">Enter</Link>
             </button>
           </Route>

@@ -1,3 +1,6 @@
+import '../style/question.css';
+import '../index.css';
+
 import { fetchLocations, postLocations } from '../services/service';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -55,7 +58,7 @@ const Test = () => {
   useEffect(() => {
     const days = () => {
       var hours = new Date().getHours();
-      if (hours === 12) {
+      if (hours === 14) {
         setQuestionType('Chinese');
         setGoatType('Chinese restaurant');
       }
@@ -82,7 +85,7 @@ const Test = () => {
         hours === 4 ||
         hours === 5 ||
         hours === 6 ||
-        hours === 10
+        hours === 7
       ) {
         setTimeToShow(!timeToShow);
       }
@@ -148,7 +151,7 @@ const Test = () => {
             }}
             disabled={!ready}
             placeholder="Enter a location"
-            className="rounded"
+            className="rounded field"
           ></ComboboxInput>
           <ComboboxPopover>
             <ComboboxList>
@@ -167,10 +170,10 @@ const Test = () => {
     <div>
       {!isSubmitted ? (
         !timeToShow ? (
-          <div className="text-white">
-            <p>What is the best {goatType} in Barcelona?</p>
+          <div>
+            <p className="bg-green">What is the Barcelona's GOAT {goatType}?</p>
 
-            <Search className="rounded"></Search>
+            <Search></Search>
           </div>
         ) : (
           <div>

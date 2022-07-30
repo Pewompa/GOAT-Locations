@@ -1,0 +1,15 @@
+p {
+  color: #22d2a0;
+  font-weight: bolder;
+  font-size: 30px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
+
+.field {
+  margin-left: 50px;
+  background-color: rgb(62, 62, 62);
+  color: white;
+  border: 1px solid #adf0dd;
+  -webkit-text-stroke: 0.1px #adf0dd;
+}

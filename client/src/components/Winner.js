@@ -22,7 +22,7 @@ const Winner = () => {
         setGoatType('Chinese restaurant');
         setQuestionType('Chinese');
       }
-      if (hours === 9) {
+      if (hours === 14) {
         setGoatType('Club');
         setQuestionType('Club');
       }
