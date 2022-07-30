@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Winner = () => {
   const [locations, setLocations] = useState([{}]);
+  //for the questions themselves
   const [goatType, setGoatType] = useState([]);
   const [winner, setWinner] = useState([]);
   const [questionType, setQuestionType] = useState([]);
@@ -17,11 +18,11 @@ const Winner = () => {
     goat();
     const days = () => {
       var hours = new Date().getHours();
-      if (hours === 21) {
+      if (hours === 10) {
         setGoatType('Chinese restaurant');
         setQuestionType('Chinese');
       }
-      if (hours === 22) {
+      if (hours === 9) {
         setGoatType('Club');
         setQuestionType('Club');
       }

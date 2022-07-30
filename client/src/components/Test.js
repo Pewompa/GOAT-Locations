@@ -55,11 +55,11 @@ const Test = () => {
   useEffect(() => {
     const days = () => {
       var hours = new Date().getHours();
-      if (hours === 18) {
+      if (hours === 8) {
         setQuestionType('Chinese');
         setGoatType('Chinese restaurant');
       }
-      if (hours === 21) {
+      if (hours === 9) {
         setQuestionType('Club');
         setGoatType('Club');
       }
@@ -82,7 +82,7 @@ const Test = () => {
         hours === 4 ||
         hours === 5 ||
         hours === 6 ||
-        hours === 20
+        hours === 9
       ) {
         setTimeToShow(!timeToShow);
       }
