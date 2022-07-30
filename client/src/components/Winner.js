@@ -18,7 +18,7 @@ const Winner = () => {
     goat();
     const days = () => {
       var hours = new Date().getHours();
-      if (hours === 10) {
+      if (hours === 11) {
         setGoatType('Chinese restaurant');
         setQuestionType('Chinese');
       }

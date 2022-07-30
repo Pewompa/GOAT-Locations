@@ -55,11 +55,11 @@ const Test = () => {
   useEffect(() => {
     const days = () => {
       var hours = new Date().getHours();
-      if (hours === 8) {
+      if (hours === 12) {
         setQuestionType('Chinese');
         setGoatType('Chinese restaurant');
       }
-      if (hours === 9) {
+      if (hours === 10) {
         setQuestionType('Club');
         setGoatType('Club');
       }
@@ -82,7 +82,7 @@ const Test = () => {
         hours === 4 ||
         hours === 5 ||
         hours === 6 ||
-        hours === 9
+        hours === 10
       ) {
         setTimeToShow(!timeToShow);
       }
@@ -148,6 +148,7 @@ const Test = () => {
             }}
             disabled={!ready}
             placeholder="Enter a location"
+            className="rounded"
           ></ComboboxInput>
           <ComboboxPopover>
             <ComboboxList>
@@ -166,10 +167,10 @@ const Test = () => {
     <div>
       {!isSubmitted ? (
         !timeToShow ? (
-          <div>
+          <div className="text-white">
             <p>What is the best {goatType} in Barcelona?</p>
 
-            <Search></Search>
+            <Search className="rounded"></Search>
           </div>
         ) : (
           <div>

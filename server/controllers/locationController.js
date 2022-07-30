@@ -2,7 +2,7 @@ const LocationModel = require('../models/locationModel');
 
 async function getLocations(req, res) {
   try {
-    const data = await LocationModel.find({});
+    const data = await LocationModel.find({}).sort({ score: -1 });
     res.status = 201;
     res.json(data);
   } catch (error) {
@@ -18,13 +18,13 @@ async function postLocations(req, res) {
     location.score = location.score + 1;
     await location.save();
     return res.send(location);
-    // return res
-    //   .status(409)
-    //   .send({ error: '409', message: 'Location already exists' });
   }
   try {
     const newEvent = new LocationModel({
       title: req.body.title,
+      lat: req.body.lat,
+      lng: req.body.lng,
+      question: req.body.question,
     });
     await newEvent.save();
     res.status = 201;
