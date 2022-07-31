@@ -1,15 +1,31 @@
 p {
   color: #22d2a0;
   font-weight: bolder;
-  font-size: 30px;
+  font-size: 50px;
   margin-left: 30px;
   margin-bottom: 30px;
+  margin-top: 40px;
 }
 
 .field {
-  margin-left: 50px;
-  background-color: rgb(62, 62, 62);
-  color: white;
+  margin-left: 35px;
+  background-color: rgb(230, 221, 221);
+  color: #000000;
   border: 1px solid #adf0dd;
   -webkit-text-stroke: 0.1px #adf0dd;
+  width: 15em;
+}
+
+#thanks {
+  margin-top: 30px;
+  font-size: 4rem;
+  letter-spacing: normal;
+}
+#herd {
+  font-size: 2rem;
+}
+
+#maps {
+  margin-left: 60em;
+  margin-top: 10em;
 }

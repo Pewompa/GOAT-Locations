@@ -11,17 +11,20 @@ import MarkerTest from './components/MarkerTest';
 function App() {
   return (
     <Router>
-      <div class=" card border-2 p-6 max-w-4xl h-96  mt-20 mx-auto bg-green-450 rounded-xl shadow-lg space-x-4  ">
+      <div class="   ">
         <Switch>
           <Route exact path="/">
-            <h2 className="mt-10 ">WELCOME TO</h2>
-            <h1 class="">
-              <span id="goat">GOAT</span> LOCATIONS
-            </h1>
-            <button className="button mt-20 mr-20">
+            <div className="card border-2 p-6 max-w-7xl h-tall  mt-20 mx-auto bg-green-450 rounded-xl shadow-lg space-x-4">
+              <h2 className="mt-10 ">WELCOME TO BARCELONA'S</h2>
+              <h1 class="text-8xl mt-10">
+                <span id="goat">GOAT</span> LOCATIONS
+              </h1>
+
               {/* bg-green-300 px-10 py-5 rounded-lg hover:bg-orange-300 text-white font-medium text-4xl */}
-              <Link to="/question">Enter</Link>
-            </button>
+              <Link to="/question">
+                <button className="button mt-20 mr-20">Enter</button>
+              </Link>
+            </div>
           </Route>
           <Route path="/question">
             {/* <Question></Question> */}

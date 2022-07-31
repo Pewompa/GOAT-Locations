@@ -1,7 +1,7 @@
 import { fetchLocations, postLocations } from '../services/service';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import '../style/winner.css';
 const Winner = () => {
   const [locations, setLocations] = useState([{}]);
   //for the questions themselves

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchLocations, postLocations } from '../services/service';
 import { Loader } from '@googlemaps/js-api-loader';
+import '../style/maps.css';
 import {
   useJsApiLoader,
   GoogleMap,
@@ -14,8 +15,8 @@ import mapsStyle from '../style/mapsStyle';
 
 const libraries = ['places'];
 const mapContainerStyle = {
-  width: '100vw',
-  height: '100vh',
+  width: '100%',
+  height: '100%',
 };
 const center = {
   lat: 41.399149,
@@ -23,6 +24,9 @@ const center = {
 };
 const options = {
   styles: mapsStyle,
+  disableDefaultUI: true,
+  zoomControl: true,
+  streetViewControl: true,
 };
 //////////////////////////////////////////////////////////////////////////////////////////
 /*FUNCTION START*/
@@ -94,8 +98,9 @@ const Maps = () => {
   // if (!isLoaded) return 'Loading maps';
 
   return (
-    <div>
-      <h1>Goat Map</h1>
+    <div className="card border-2  max-w-7xl h-tall  mt-20 mx-auto bg-green-450 rounded shadow-lg ">
+      {/* <div className="container"> */}
+      <h1 id="goatMap">Goat Map</h1>
       {/* <Search></Search> */}
       <GoogleMap
         mapContainerStyle={mapContainerStyle}

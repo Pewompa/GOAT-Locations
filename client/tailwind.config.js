@@ -9,6 +9,9 @@ module.exports = {
           500: '#22d2a0',
         },
       },
+      height: {
+        tall: '550px',
+      },
     },
     plugins: [],
   },

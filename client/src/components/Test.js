@@ -1,5 +1,6 @@
 import '../style/question.css';
 import '../index.css';
+import '../App.css';
 
 import { fetchLocations, postLocations } from '../services/service';
 import { useState, useEffect } from 'react';
@@ -58,7 +59,7 @@ const Test = () => {
   useEffect(() => {
     const days = () => {
       var hours = new Date().getHours();
-      if (hours === 14) {
+      if (hours === 17) {
         setQuestionType('Chinese');
         setGoatType('Chinese restaurant');
       }
@@ -167,7 +168,8 @@ const Test = () => {
   }
 
   return (
-    <div>
+    // <div className="card border-2 p-6 max-w-7xl h-tall  mt-20 mx-auto bg-green-450 rounded-xl shadow-lg space-x-4">
+    <div className="card border-2 p-6 max-w-7xl h-tall  mt-20 mx-auto bg-green-450 rounded-xl shadow-lg space-x-4">
       {!isSubmitted ? (
         !timeToShow ? (
           <div>
@@ -185,14 +187,17 @@ const Test = () => {
         )
       ) : (
         <div>
-          <h1>THANK YOU FOR YOUR SUBMISSION!</h1>
-          <p>
-            The herd is deciding, the winner will be revealed tonight at 10 p.m.
+          <h1 id="thanks">THANK YOU FOR YOUR SUBMISSION!</h1>
+          <p id="herd">
+            The herd is now deciding, the winner will be revealed at 10 p.m.
           </p>
-          <button>
-            {/* This will have to go to maps */}
-            <Link to="/maps">Go to Maps</Link>
-          </button>
+
+          {/* This will have to go to maps */}
+          <Link to="/maps">
+            <button className="button" id="maps">
+              Go to Maps
+            </button>
+          </Link>
           <br />
           <input type="text" placeholder="Suggest a question" />
         </div>
