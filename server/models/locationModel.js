@@ -10,6 +10,7 @@ const locationSchema = new mongoose.Schema({
   lat: Number,
   lng: Number,
   question: String,
+  googleId: String,
 });
 const LocationModel = mongoose.model('locations', locationSchema);
 module.exports = LocationModel;

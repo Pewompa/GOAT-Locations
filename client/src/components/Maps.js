@@ -28,6 +28,9 @@ const options = {
   zoomControl: true,
   streetViewControl: true,
 };
+// const infoWindowOptions = {
+
+// }
 //////////////////////////////////////////////////////////////////////////////////////////
 /*FUNCTION START*/
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -156,10 +159,11 @@ const Maps = () => {
             onCloseClick={() => {
               setSelected(null);
             }}
+            options={{ maxWidth: 500, maxHeight: 100 }}
           >
-            <div>
-              <p>GOAT {selected.question}:</p>
-              <h2>{selected.title}</h2>
+            <div class="infoWindow">
+              <p class="infoWindow">GOAT {selected.question}:</p>
+              <h2 class="infoWindow">{selected.title}</h2>
             </div>
           </InfoWindow>
         ) : null}

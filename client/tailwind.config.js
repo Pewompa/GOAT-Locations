@@ -12,6 +12,9 @@ module.exports = {
       height: {
         tall: '550px',
       },
+      margin: {
+        big: '60rem',
+      },
     },
     plugins: [],
   },

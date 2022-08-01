@@ -9,6 +9,16 @@ async function getLocations(req, res) {
     res.status = 400;
   }
 }
+async function getLocationsAuth(req, res) {
+  try {
+    const { googleId } = req.body;
+    const data = await LocationModel.findOne({ googleId: googleId });
+    res.status = 201;
+    res.json(data);
+  } catch (error) {
+    res.status = 400;
+  }
+}
 
 async function postLocations(req, res) {
   //Checking if the location is already in the db
@@ -25,6 +35,7 @@ async function postLocations(req, res) {
       lat: req.body.lat,
       lng: req.body.lng,
       question: req.body.question,
+      googleId: req.body.googleId,
     });
     await newEvent.save();
     res.status = 201;
@@ -35,4 +46,4 @@ async function postLocations(req, res) {
   }
 }
 
-module.exports = { getLocations, postLocations };
+module.exports = { getLocations, postLocations, getLocationsAuth };

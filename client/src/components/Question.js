@@ -1,158 +1,227 @@
-import { useState, useEffect } from 'react';
-import { fetchLocations, postLocations } from '../services/service';
+import '../style/question.css';
+import '../index.css';
+import '../App.css';
+import Logout from './Logout';
 
+import {
+  fetchLocations,
+  postLocations,
+  postId,
+  fetchId,
+} from '../services/service';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import {
+  useJsApiLoader,
+  GoogleMap,
+  Marker,
+  Autocomplete,
+  DirectionsRenderer,
+} from '@react-google-maps/api';
+
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from 'use-places-autocomplete';
+
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxList,
+  ComboboxPopover,
+  ComboboxOption,
+} from '@reach/combobox';
+import { ComboboxComponent } from '@syncfusion/ej2-react-dropdowns';
+import '@reach/combobox/styles.css';
+
+import mapsStyle from '../style/mapsStyle';
+
+const libraries = ['places'];
+const mapContainerStyle = {
+  width: '100vw',
+  height: '100vh',
+};
+const center = {
+  lat: 41.399149,
+  lng: 2.1828661,
+};
+const options = {
+  styles: mapsStyle,
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/*FUNCTION START*/
+//////////////////////////////////////////////////////////////////////////////////////////
 
 const Question = () => {
   const [locations, setLocations] = useState([]);
   const [newLocation, setNewLocation] = useState('');
-
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [timeToShow, setTimeToShow] = useState(false);
+  const [questionType, setQuestionType] = useState([]);
+  const [goatType, setGoatType] = useState([]);
+  const [id, setId] = useState([{}]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    let data = await postLocations(newLocation);
-    console.log(data);
-    setLocations([...locations, data]);
-    setNewLocation('');
-    setIsSubmitted(!isSubmitted);
-  };
-  const handleChange = (event) => {
-    setNewLocation(event.target.value);
-  };
+  useEffect(() => {
+    const days = () => {
+      var hours = new Date().getHours();
+      if (hours === 19) {
+        setQuestionType('Chinese');
+        setGoatType('Chinese restaurant');
+      }
+      if (hours === 20) {
+        setQuestionType('Club');
+        setGoatType('Club');
+      }
+    };
+    days();
+    //[id]will contain several id's
+    fetchId().then((data) => {
+      setId(data);
+      console.log(data);
+    });
+    console.log(id);
+  }, []);
+
+  useEffect(() => {
+    const time = () => {
+      let hours = new Date().getHours();
+      if (
+        // hours === 20 ||
+        hours === 21 ||
+        hours === 22 ||
+        hours === 23 ||
+        hours === 24 ||
+        hours === 1 ||
+        hours === 2 ||
+        hours === 3 ||
+        hours === 4 ||
+        hours === 5 ||
+        hours === 6 ||
+        hours === 11
+      ) {
+        setTimeToShow(!timeToShow);
+      }
+    };
+    time();
+  }, []);
+  console.log(id[0].googleId);
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries,
+    // process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  });
+  if (loadError) return 'Error loading maps';
+  if (!isLoaded) return 'Loading maps';
+
+  function Search() {
+    const {
+      ready,
+      value,
+      suggestions: { status, data },
+      setValue,
+      clearSuggestions,
+    } = usePlacesAutocomplete({
+      requestOptions: {
+        location: {
+          lat: () => 41.399149,
+          lng: () => 2.1828661,
+        },
+        radius: 5000,
+      },
+    });
+    return (
+      <div>
+        {/* aka form */}
+        <Combobox
+          onSelect={async (address) => {
+            setValue(address, false);
+            clearSuggestions();
+
+            try {
+              const results = await getGeocode({ address });
+              //do post here?
+              const { lat, lng } = await getLatLng(results[0]);
+
+              let data = await postLocations(
+                address,
+                lat,
+                lng,
+                questionType,
+                id[0].googleId
+              );
+              console.log(data);
+              setLocations([...locations, data]);
+              console.log(address);
+              setIsSubmitted(!isSubmitted);
+
+              console.log(lat, lng);
+              //   panTo({ lat, lng });
+            } catch (error) {
+              console.log(error);
+            }
+          }}
+        >
+          {/* aka input */}
+          <ComboboxInput
+            value={value}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+            disabled={!ready}
+            placeholder="Enter a location"
+            className="rounded field"
+          ></ComboboxInput>
+          <ComboboxPopover>
+            <ComboboxList>
+              {status === 'OK' &&
+                data.map(({ id, description }) => (
+                  <ComboboxOption key={id} value={description} />
+                ))}
+            </ComboboxList>
+          </ComboboxPopover>
+        </Combobox>
+      </div>
+    );
+  }
 
   return (
-    <div>
+    // <div className="card border-2 p-6 max-w-7xl h-tall  mt-20 mx-auto bg-green-450 rounded-xl shadow-lg space-x-4">
+    <div className="card border-2 p-6 max-w-7xl h-tall  mt-20 mx-auto bg-green-450 rounded-xl shadow-lg space-x-4">
       {!isSubmitted ? (
-        <div>
-          <p>What is the best Chinese restaurant in Barcelona?</p>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="search"
-              name="search"
-              placeholder="Search Locations"
-              value={newLocation}
-              onChange={handleChange}
-              required
-            />
-            <input type="submit" value="SUBMIT" />
-          </form>
-        </div>
+        !timeToShow ? (
+          <div>
+            <p className="bg-green">What is Barcelona's GOAT {goatType}?</p>
+
+            <Search></Search>
+            <Logout></Logout>
+          </div>
+        ) : (
+          <div>
+            <p>The heard has decided, Barcelona’s GOAT {goatType} is...</p>
+
+            <Link to="/winner">
+              <button className="button maps">Reveal GOAT</button>
+            </Link>
+          </div>
+        )
       ) : (
         <div>
-          <h1>THANK YOU FOR YOUR SUBMISSION!</h1>
-          <p>
-            The herd is deciding, the winner will be revealed tonight at 10 p.m.
+          <h1 id="thanks">THANK YOU FOR YOUR SUBMISSION!</h1>
+          <p id="herd">
+            The herd is now deciding, the GOAT will be revealed at 10 p.m.
           </p>
-          <button>
-            {/* This will have to go to maps */}
 
-            <Link to="/winner">Accept</Link>
-          </button>
+          {/* This will have to go to maps */}
+          <Link to="/maps">
+            <button className="button maps">Go to Maps</button>
+          </Link>
+          <br />
+          <input type="text" placeholder="Suggest a question" />
         </div>
       )}
     </div>
   );
 };
-
 export default Question;
-// import PlacesAutocomplete, {
-//   geocodeByAddress,
-//   getLangLng,
-// } from 'react-places-autocomplete';
-// import { useState, useEffect } from 'react';
-// import { fetchLocations, postLocations } from '../services/service';
-
-// import { Link } from 'react-router-dom';
-// // import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-// const Question = () => {
-//   const [locations, setLocations] = useState([]);
-//   const [newLocation, setNewLocation] = useState('');
-
-//   const [isSubmitted, setIsSubmitted] = useState(false);
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-//     let data = await postLocations(newLocation);
-//     console.log(data);
-//     setLocations([...locations, data]);
-//     setNewLocation('');
-//     setIsSubmitted(!isSubmitted);
-//   };
-//   const handleChange = (event) => {
-//     setNewLocation(event.target.value);
-//   };
-
-//   return (
-//     <div>
-//       {!isSubmitted ? (
-//         <div>
-//           <p>What is the best Chinese restaurant in Barcelona?</p>
-//           <PlacesAutocomplete
-//           onSubmit=
-//             value={newLocation}
-//             onChange={handleChange}
-//             // onSelect={handleSelect}
-//           >
-//             {({
-//               getInputProps,
-//               suggestions,
-//               getSuggestionItemProps,
-//               loading,
-//             }) => (
-//               <div>
-//                 {/* <p>Name: {newLocation}</p> */}
-//                 <input
-//                   {...getInputProps({ placeholder: 'Type location' })}
-//                 ></input>
-//                 <div>
-//                   {loading ? <div>...loading</div> : null}
-//                   {suggestions.map((suggestion) => {
-//                     const style = {
-//                       backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
-//                     };
-//                     return (
-//                       <div {...getSuggestionItemProps(suggestion, { style })}>
-//                         {suggestion.description}
-//                       </div>
-//                     );
-//                   })}
-//                   {/* {suggestions.map((suggestion) => {
-//                 return <div>{suggestion.description}</div>;
-//               })} */}
-//                 </div>
-//               </div>
-//             )}
-//           </PlacesAutocomplete>
-//           {/* <form onSubmit={handleSubmit}>
-//             <input
-//               type="search"
-//               name="search"
-//               placeholder="Search Locations"
-//               value={newLocation}
-//               onChange={handleChange}
-//               required
-//             />
-//             <input type="submit" value="SUBMIT" />
-//           </form> */}
-//         </div>
-//       ) : (
-//         <div>
-//           <h1>THANK YOU FOR YOUR SUBMISSION!</h1>
-//           <p>
-//             The herd is deciding, the winner will be revealed tonight at 10 p.m.
-//           </p>
-//           <button>
-//             {/* This will have to go to maps */}
-
-//             <Link to="/winner">Accept</Link>
-//           </button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Question;

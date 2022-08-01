@@ -2,6 +2,8 @@ import { fetchLocations, postLocations } from '../services/service';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../style/winner.css';
+import '../App.css';
+
 const Winner = () => {
   const [locations, setLocations] = useState([{}]);
   //for the questions themselves
@@ -18,11 +20,11 @@ const Winner = () => {
     goat();
     const days = () => {
       var hours = new Date().getHours();
-      if (hours === 11) {
+      if (hours === 12) {
         setGoatType('Chinese restaurant');
         setQuestionType('Chinese');
       }
-      if (hours === 14) {
+      if (hours === 11) {
         setGoatType('Club');
         setQuestionType('Club');
       }
@@ -40,13 +42,22 @@ const Winner = () => {
       }
     };
     winning();
+
+    // let counter = 0;
+    // for (let i = 0; i < winner.title.length; i++) {
+    //   if (winner.title[i] !== ',') {
+    //     counter++;
+    //   } else {
+    //     break;
+    //   }
+    // }
+    // console.log(counter);
   });
 
   console.log(locations);
-  console.log(winner);
+  console.log(winner.title);
   return (
-    <div>
-      <p>...</p>
+    <div className="card border-2 p-6 max-w-7xl h-tall  mt-20 mx-auto bg-green-450 rounded-xl shadow-lg space-x-4">
       {/* <h1>{locations[0].title}</h1> */}
       {/* {locations.map((location) => {
         let winner;
@@ -56,10 +67,13 @@ const Winner = () => {
         console.log(winner);
         return <h1>{winner}</h1>;
       })} */}
-      <h1>{winner.title}</h1>
-      <button>
-        <Link to="/maps">Go to Maps</Link>
-      </button>
+      <h1 id="winner">{winner.title}</h1>
+      {/* <h1 id="winner">{title()}</h1> */}
+
+      <Link to="/maps">
+        {' '}
+        <button className="button winnerbutton">Go to Maps</button>
+      </Link>
     </div>
   );
 };

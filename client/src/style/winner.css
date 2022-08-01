@@ -1,3 +1,10 @@
-h1 {
-  font-size: 5em;
+#winner {
+  font-size: 3.5em;
+  letter-spacing: normal;
+  margin-top: 0.5em;
+}
+
+.winnerbutton {
+  margin-left: 60em;
+  margin-top: 12em;
 }

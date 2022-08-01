@@ -5,9 +5,13 @@
   z-index: 10;
   margin: 0;
   padding: 0;
-  color: #000; /* Fallback for older browsers */
+  color: #000;
   color: rgba(0, 0, 0, 0.5);
-  /* color: #22d2a0; */
+
   font-size: 4em;
   /* -webkit-text-stroke: 1.5px #ffffff; */
+}
+
+.infoWindow {
+  color: #3f6356;
 }
