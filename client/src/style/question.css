@@ -29,3 +29,25 @@ p {
   margin-left: 60em;
   margin-top: 10em;
 }
+
+#submit {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 11px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  border-color: #22d2a0;
+  color: #22d2a0;
+  border-radius: 5px;
+  font-family: 'Archivo Black', 'Archivo', sans-serif;
+  background-color: #192824;
+  width: 9vw;
+  position: absolute;
+  margin-top: 40px;
+  margin-left: 300px;
+}
+#submit:hover {
+  background-color: #22d2a0;
+  color: white;
+}

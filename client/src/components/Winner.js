@@ -19,14 +19,36 @@ const Winner = () => {
       });
     goat();
     const days = () => {
-      var hours = new Date().getHours();
-      if (hours === 12) {
+      let day = new Date().getDay()
+      console.log(day)
+      // var hours = new Date().getHours();
+      if (day === 1) {
         setGoatType('Chinese restaurant');
-        setQuestionType('Chinese');
+        setQuestionType('Chinese restaurant');
       }
-      if (hours === 11) {
+      if (day === 3) {
         setGoatType('Club');
         setQuestionType('Club');
+      }
+      if (day === 2) {
+        setGoatType('Karaoke');
+        setQuestionType('Karaoke');
+      }
+      if (day === 4) {
+        setGoatType('Pizzeria');
+        setQuestionType('Pizzeria');
+      }
+      if (day === 5) {
+        setGoatType('Supermarket');
+        setQuestionType('Supermarket');
+      }
+      if (day === 6) {
+        setGoatType('Exhibition');
+        setQuestionType('Exhibition');
+      }
+      if (day === 7) {
+        setGoatType('Skate Spot');
+        setQuestionType('Skate Spot');
       }
     };
     days();

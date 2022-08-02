@@ -8,6 +8,8 @@ import Question from './components/Question';
 import Winner from './components/Winner';
 import Maps from './components/Maps';
 import Login from './components/Login';
+import Deciding from './components/Deciding';
+import LoggedinWinner from './components/LoggedinWinner';
 import { gapi } from 'gapi-script';
 const clientId =
   '920146011440-2som4b9al73g4gesg373a1k7fbt6mno7.apps.googleusercontent.com';
@@ -47,6 +49,12 @@ function App() {
           </Route>
           <Route path="/winner">
             <Winner></Winner>
+          </Route>
+          <Route path="/deciding">
+            <Deciding></Deciding>
+          </Route>
+          <Route path="/loggedinWinner">
+            <LoggedinWinner></LoggedinWinner>
           </Route>
           <Route path="/maps">
             <Maps></Maps>

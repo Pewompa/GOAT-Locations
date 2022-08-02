@@ -6,6 +6,7 @@ authRouter.get('/googleId', controller.getId);
 
 authRouter.post('/googleId', controller.postId);
 authRouter.post('/googleId', controller.postId);
-authRouter.post('/googleId/remove', controller.removeId);
+authRouter.delete('/googleId/remove', controller.removeCollection);
+// authRouter.post('/googleId/remove', controller.removeId);
 
 module.exports = authRouter;

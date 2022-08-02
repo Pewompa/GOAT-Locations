@@ -47,12 +47,7 @@ h1 {
   object-fit: contain;
 }
 
-/* :root {
-  --primary: #22d2a0;
-  --secondary: #192824;
-  --background: #192824;
-  --green: #1fc11b;
-  --yellow: #ffd913;
-  --orange: #ff9c55;
-  --red: #ff5555;
-} */
+#questionLogout{
+  color: blue;
+  margin-right: 200px;
+}

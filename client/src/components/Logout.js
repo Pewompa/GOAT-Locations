@@ -28,7 +28,7 @@ const Logout = () => {
         clientId={clientId}
         buttonText={''}
         render={(renderProps) => (
-          <button onClick={renderProps.onClick} className="button ml-big">
+          <button onClick={renderProps.onClick} className="signoutbutton">
             Logout
           </button>
         )}

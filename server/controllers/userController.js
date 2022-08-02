@@ -38,7 +38,19 @@ async function removeId(req, res) {
     res.send(deletedId);
   } catch (error) {
     console.log(error);
-    ctx.status = 400;
+    res.status = 400;
   }
 }
-module.exports = { getId, postId, removeId };
+
+async function removeCollection(req, res){
+  try {
+    const deletedId = await IdModel.collection.drop();
+    res.status = 201;
+    res.send(deletedId);
+  } catch (error) {
+    console.log(error);
+    res.status = 400;
+  }
+}
+
+module.exports = { getId, postId, removeId, removeCollection };

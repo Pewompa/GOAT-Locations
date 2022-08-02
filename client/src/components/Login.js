@@ -11,25 +11,59 @@ const clientId =
   '920146011440-2som4b9al73g4gesg373a1k7fbt6mno7.apps.googleusercontent.com';
 const Login = () => {
   const [id, setId] = useState([{}]);
-  const [questionType, setQuestionType] = useState([]);
+
 
   let history = useHistory();
 
   const onSuccess = async (res) => {
     console.log('LOGIN SUCCESS! Current user: ', res.profileObj);
-    let data = await postId(res.profileObj.googleId);
-    let auth = fetchLocationsId().then((data) => {
-      setId(data);
-      console.log(data);
-    });
-    if (auth) {
-      //change route to heard is now deciding
-      history.push('/maps');
-    } else {
-      history.push('/question');
+    let checkId = await fetchId();
+
+    console.log(checkId)
+    let hours = new Date().getHours();
+    if (
+      // hours === 20 ||
+      hours === 21 ||
+      hours === 22 ||
+      hours === 23 ||
+      hours === 24 ||
+      hours === 1 ||
+      hours === 2 ||
+      hours === 3 ||
+      hours === 4 ||
+      hours === 5 ||
+      hours === 6 ||
+      hours === 7
+    ) {
+
+      if(checkId.length){
+        history.push('/loggedinWinner');
+      } else {
+        await postId(res.profileObj.googleId);
+        history.push('/question');
+  
+      }
+    }else{
+      if(checkId.length){
+        history.push('/deciding');
+      }else {
+        await postId(res.profileObj.googleId);
+        history.push('/question');
+  
+      }
     }
+    // let auth = fetchLocationsId().then((data) => {
+    //   setId(data);
+    //   console.log(data);
+    // });
+    // if (auth) {
+    //   //change route to heard is now deciding
+    //   history.push('/deciding');
+    // } else {
+    //   history.push('/question');
+    // }
     console.log(id);
-    console.log(data);
+    // console.log(data);
   };
 
   const onFailure = (res) => {

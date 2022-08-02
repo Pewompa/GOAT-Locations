@@ -1,6 +1,6 @@
 import '../style/question.css';
-import '../index.css';
-import '../App.css';
+// import '../index.css';
+// import '../App.css';
 import Logout from './Logout';
 
 import {
@@ -8,6 +8,7 @@ import {
   postLocations,
   postId,
   fetchId,
+  removeCollection,
 } from '../services/service';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -65,14 +66,36 @@ const Question = () => {
 
   useEffect(() => {
     const days = () => {
+      let day = new Date().getDay();
+      console.log(day);
       var hours = new Date().getHours();
-      if (hours === 19) {
-        setQuestionType('Chinese');
+      if (day === 1) {
+        setQuestionType('Chinese Restaurant');
         setGoatType('Chinese restaurant');
       }
-      if (hours === 20) {
+      if (day === 2) {
         setQuestionType('Club');
         setGoatType('Club');
+      }
+      if (day === 3) {
+        setGoatType('Karaoke');
+        setQuestionType('Karaoke');
+      }
+      if (day === 4) {
+        setGoatType('Pizzeria');
+        setQuestionType('Pizzeria');
+      }
+      if (day === 2) {
+        setGoatType('Supermarket');
+        setQuestionType('Supermarket');
+      }
+      if (day === 6) {
+        setGoatType('Exhibition');
+        setQuestionType('Exhibition');
+      }
+      if (day === 7) {
+        setGoatType('Skate Spot');
+        setQuestionType('Skate Spot');
       }
     };
     days();
@@ -85,6 +108,14 @@ const Question = () => {
   }, []);
 
   useEffect(() => {
+    const minutes = () => {
+      // var minutes = (new Date()).getMinutes();
+      var hours = new Date().getHours;
+      if (hours === 22) {
+        removeCollection();
+      }
+    };
+    minutes();
     const time = () => {
       let hours = new Date().getHours();
       if (
@@ -99,12 +130,13 @@ const Question = () => {
         hours === 4 ||
         hours === 5 ||
         hours === 6 ||
-        hours === 11
+        hours === 7
       ) {
         setTimeToShow(!timeToShow);
       }
     };
     time();
+    console.log(isSubmitted);
   }, []);
   console.log(id[0].googleId);
   const { isLoaded, loadError } = useJsApiLoader({
@@ -133,7 +165,6 @@ const Question = () => {
     });
     return (
       <div>
-        {/* aka form */}
         <Combobox
           onSelect={async (address) => {
             setValue(address, false);
@@ -192,14 +223,17 @@ const Question = () => {
       {!isSubmitted ? (
         !timeToShow ? (
           <div>
-            <p className="bg-green">What is Barcelona's GOAT {goatType}?</p>
+            <div>
+              <p className="bg-green">What is Barcelona's GOAT {goatType}?</p>
+              {/* <button id='submit' onClick={()=>{setIsSubmitted(!isSubmitted)}}>Submito</button> */}
+              <Search></Search>
+            </div>
 
-            <Search></Search>
-            <Logout></Logout>
+            {/* <Logout></Logout> */}
           </div>
         ) : (
           <div>
-            <p>The heard has decided, Barcelona’s GOAT {goatType} is...</p>
+            <p>The herd has decided, Barcelona’s GOAT {goatType} is...</p>
 
             <Link to="/winner">
               <button className="button maps">Reveal GOAT</button>
@@ -210,7 +244,7 @@ const Question = () => {
         <div>
           <h1 id="thanks">THANK YOU FOR YOUR SUBMISSION!</h1>
           <p id="herd">
-            The herd is now deciding, the GOAT will be revealed at 10 p.m.
+            The herd is now deciding, the GOAT will be revealed at 9 p.m.
           </p>
 
           {/* This will have to go to maps */}
@@ -218,7 +252,7 @@ const Question = () => {
             <button className="button maps">Go to Maps</button>
           </Link>
           <br />
-          <input type="text" placeholder="Suggest a question" />
+          {/* <input type="text" placeholder="Suggest a question" /> */}
         </div>
       )}
     </div>

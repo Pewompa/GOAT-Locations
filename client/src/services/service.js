@@ -59,3 +59,12 @@ export const removeId = (id) => {
     .then((response) => response.json())
     .catch((error) => console.log(error));
 };
+
+export const removeCollection = () =>{
+  return fetch('http://localhost:4000/googleId/remove',{
+    method: 'DELETE',
+  })
+  .then((response) => response.json())
+    .then(console.log('deleted'))
+    .catch((e) => console.log(e));
+}
