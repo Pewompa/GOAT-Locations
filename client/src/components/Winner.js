@@ -19,22 +19,22 @@ const Winner = () => {
       });
     goat();
     const days = () => {
-      let day = new Date().getDay()
-      console.log(day)
+      let day = new Date().getDay();
+      console.log(day);
       // var hours = new Date().getHours();
       if (day === 1) {
         setGoatType('Chinese restaurant');
         setQuestionType('Chinese restaurant');
       }
-      if (day === 3) {
+      if (day === 2) {
         setGoatType('Club');
         setQuestionType('Club');
       }
-      if (day === 2) {
+      if (day === 4) {
         setGoatType('Karaoke');
         setQuestionType('Karaoke');
       }
-      if (day === 4) {
+      if (day === 3) {
         setGoatType('Pizzeria');
         setQuestionType('Pizzeria');
       }
@@ -64,17 +64,22 @@ const Winner = () => {
       }
     };
     winning();
-
-    // let counter = 0;
-    // for (let i = 0; i < winner.title.length; i++) {
-    //   if (winner.title[i] !== ',') {
-    //     counter++;
-    //   } else {
-    //     break;
-    //   }
-    // }
-    // console.log(counter);
+    console.log(winner);
   });
+  // let counter = 0;
+  //   for (let i = 0; i < winner.title.length; i++) {
+  //     // winner.title
+  //     if (winner.title[i] !== ',') {
+  //       counter++;
+  //     } else {
+  //       break;
+  //     }
+
+  //     console.log(counter);
+  //   }
+
+  // let text = winner.title.split(',');
+  // winner.title.split(',');
 
   console.log(locations);
   console.log(winner.title);

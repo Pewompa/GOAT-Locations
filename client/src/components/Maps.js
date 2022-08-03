@@ -161,27 +161,7 @@ const Maps = () => {
     console.log(markersPizzeria);
     console.log(markersKaraoke);
   }, []);
-  //   useEffect(() =>{
-  //   const karaoke = () =>{
-  //     fetchLocations().then((data) => {
-  //     let karaokeArr = [];
-  //     for (let i = 0; i < data.length; i++) {
-  //       if(data[i].question === 'Karaoke'){
-  //         karaokeArr.push(data[i]);
-  //     setMarkersKaraoke([
-  //       ...markersKaraoke,
-  //       {
-  //         title: karaokeArr[0].title,
-  //         lat: karaokeArr[0].lat,
-  //         lng: karaokeArr[0].lng,
-  //         question: karaokeArr[0].question,
-  //       },
-  //     ]);
-  //   }}})
-  // }
-  // console.log(markersKaraoke)
-  // karaoke()
-  //    },[])
+
   console.log(markersKaraoke);
 
   console.log(markersPizzeria);
@@ -192,20 +172,11 @@ const Maps = () => {
     libraries: ['places'],
   });
   loader.load();
-  // const { isLoaded, loadError } = useJsApiLoader({
-  //   googleMapsApiKey: 'AIzaSyDAZNspVfSFWEByUcazI2mG6a-w9N_39qY',
-  //   // googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  //   libraries,
-  //   // process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  // });
-  // if (loadError) return 'Error loading maps';
-  // if (!isLoaded) return 'Loading maps';
 
   return (
     <div className="card border-2  max-w-7xl h-tall  mt-20 mx-auto bg-green-450 rounded shadow-lg ">
-      {/* <div className="container"> */}
       <h1 id="goatMap">Goat Map</h1>
-      {/* <Search></Search> */}
+
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={13}

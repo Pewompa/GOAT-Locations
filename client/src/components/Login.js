@@ -12,17 +12,15 @@ const clientId =
 const Login = () => {
   const [id, setId] = useState([{}]);
 
-
   let history = useHistory();
 
   const onSuccess = async (res) => {
     console.log('LOGIN SUCCESS! Current user: ', res.profileObj);
     let checkId = await fetchId();
 
-    console.log(checkId)
+    console.log(checkId);
     let hours = new Date().getHours();
     if (
-      // hours === 20 ||
       hours === 21 ||
       hours === 22 ||
       hours === 23 ||
@@ -33,23 +31,21 @@ const Login = () => {
       hours === 4 ||
       hours === 5 ||
       hours === 6 ||
-      hours === 7
+      hours === 7 ||
+      hours === 8
     ) {
-
-      if(checkId.length){
+      if (checkId.length) {
         history.push('/loggedinWinner');
       } else {
         await postId(res.profileObj.googleId);
         history.push('/question');
-  
       }
-    }else{
-      if(checkId.length){
+    } else {
+      if (checkId.length) {
         history.push('/deciding');
-      }else {
+      } else {
         await postId(res.profileObj.googleId);
         history.push('/question');
-  
       }
     }
     // let auth = fetchLocationsId().then((data) => {

@@ -2,7 +2,7 @@ import '../style/question.css';
 // import '../index.css';
 // import '../App.css';
 import Logout from './Logout';
-
+import Timer from './Timer';
 import {
   fetchLocations,
   postLocations,
@@ -119,7 +119,6 @@ const Question = () => {
     const time = () => {
       let hours = new Date().getHours();
       if (
-        // hours === 20 ||
         hours === 21 ||
         hours === 22 ||
         hours === 23 ||
@@ -130,7 +129,8 @@ const Question = () => {
         hours === 4 ||
         hours === 5 ||
         hours === 6 ||
-        hours === 7
+        hours === 7 ||
+        hours === 8
       ) {
         setTimeToShow(!timeToShow);
       }
@@ -146,7 +146,10 @@ const Question = () => {
   });
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading maps';
-
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    e.reset();
+  };
   function Search() {
     const {
       ready,
@@ -246,8 +249,24 @@ const Question = () => {
           <p id="herd">
             The herd is now deciding, the GOAT will be revealed at 9 p.m.
           </p>
-
+          {/* <Timer countDownTimeStampMS={1659465299}></Timer> */}
           {/* This will have to go to maps */}
+          <br />
+
+          <form onSubmit={handlesubmit}>
+            <label for="suggestion" className="label">
+              Suggest a GOAT type
+            </label>
+            <br />
+            <input
+              type="text"
+              id="suggestion"
+              name="suggestion"
+              placeholder="Insert GOAT"
+              className="rounded inputtext"
+            />
+            <input type="reset" value="Send" className="suggest" />
+          </form>
           <Link to="/maps">
             <button className="button maps">Go to Maps</button>
           </Link>
