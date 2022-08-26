@@ -2,17 +2,8 @@ import { useState, useEffect } from 'react';
 import { fetchLocations, postLocations } from '../services/service';
 import { Loader } from '@googlemaps/js-api-loader';
 import Logout from './Logout';
-// import '../index.css';
-// import '../App.css';
 import '../style/maps.css';
-import {
-  useJsApiLoader,
-  GoogleMap,
-  Marker,
-  InfoWindow,
-  Autocomplete,
-  DirectionsRenderer,
-} from '@react-google-maps/api';
+import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 
 import mapsStyle from '../style/mapsStyle';
 
