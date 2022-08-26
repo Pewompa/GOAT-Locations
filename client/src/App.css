@@ -76,9 +76,11 @@ h1 {
 .label {
   font-family: 'Archivo Black', 'Archivo', sans-serif;
   color: #22d2a0;
+  margin-left: 31px;
   font-weight: bold;
 }
 
 .inputtext {
   width: 18vw;
+  margin-left: 31px;
 }

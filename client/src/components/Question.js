@@ -77,11 +77,11 @@ const Question = () => {
         setQuestionType('Club');
         setGoatType('Club');
       }
-      if (day === 3) {
+      if (day === 4) {
         setGoatType('Karaoke');
         setQuestionType('Karaoke');
       }
-      if (day === 4) {
+      if (day === 3) {
         setGoatType('Pizzeria');
         setQuestionType('Pizzeria');
       }
@@ -119,7 +119,7 @@ const Question = () => {
     const time = () => {
       let hours = new Date().getHours();
       if (
-        hours === 21 ||
+        // hours === 21 ||
         hours === 22 ||
         hours === 23 ||
         hours === 24 ||

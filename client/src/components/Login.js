@@ -4,7 +4,12 @@ import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import '../index.css';
 import { useState, useEffect } from 'react';
-import { postId, fetchId, fetchLocationsId } from '../services/service';
+import {
+  postId,
+  fetchId,
+  fetchLocationsId,
+  removeId,
+} from '../services/service';
 import '../App.css';
 
 const clientId =
@@ -21,7 +26,7 @@ const Login = () => {
     console.log(checkId);
     let hours = new Date().getHours();
     if (
-      hours === 21 ||
+      // hours === 21 ||
       hours === 22 ||
       hours === 23 ||
       hours === 24 ||
