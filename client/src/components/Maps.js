@@ -167,7 +167,6 @@ const Maps = () => {
   console.log(markersPizzeria);
   console.log(markersClub);
   const loader = new Loader({
-    // apiKey: 'AIzaSyDAZNspVfSFWEByUcazI2mG6a-w9N_39qY',
     apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     version: 'weekly',
     libraries: ['places'],
