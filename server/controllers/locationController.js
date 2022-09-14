@@ -19,7 +19,6 @@ async function getLocationsAuth(req, res) {
     res.status = 400;
   }
 }
-
 async function postLocations(req, res) {
   //Checking if the location is already in the db
   const { title } = req.body;

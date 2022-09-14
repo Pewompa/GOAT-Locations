@@ -9,7 +9,6 @@ const LoggedinWinner = () => {
     const days = () => {
       let day = new Date().getDay();
       console.log(day);
-      // var hours = new Date().getHours();
       if (day === 1) {
         setGoatType('Chinese restaurant');
       }

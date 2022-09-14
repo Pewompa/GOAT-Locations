@@ -1,6 +1,5 @@
 import '../style/question.css';
-// import '../index.css';
-// import '../App.css';
+
 import Logout from './Logout';
 import Timer from './Timer';
 import {
@@ -142,7 +141,6 @@ const Question = () => {
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
-    // process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading maps';
@@ -175,7 +173,6 @@ const Question = () => {
 
             try {
               const results = await getGeocode({ address });
-              //do post here?
               const { lat, lng } = await getLatLng(results[0]);
 
               let data = await postLocations(
@@ -191,7 +188,6 @@ const Question = () => {
               setIsSubmitted(!isSubmitted);
 
               console.log(lat, lng);
-              //   panTo({ lat, lng });
             } catch (error) {
               console.log(error);
             }
@@ -221,14 +217,12 @@ const Question = () => {
   }
 
   return (
-    // <div className="card border-2 p-6 max-w-7xl h-tall  mt-20 mx-auto bg-green-450 rounded-xl shadow-lg space-x-4">
     <div className="card border-2 p-6 max-w-7xl h-tall  mt-20 mx-auto bg-green-450 rounded-xl shadow-lg space-x-4">
       {!isSubmitted ? (
         !timeToShow ? (
           <div>
             <div>
               <p className="bg-green">What is Barcelona's GOAT {goatType}?</p>
-              {/* <button id='submit' onClick={()=>{setIsSubmitted(!isSubmitted)}}>Submito</button> */}
               <Search></Search>
             </div>
 
@@ -249,8 +243,6 @@ const Question = () => {
           <p id="herd">
             The herd is now deciding, the GOAT will be revealed at 9 p.m.
           </p>
-          {/* <Timer countDownTimeStampMS={1659465299}></Timer> */}
-          {/* This will have to go to maps */}
           <br />
 
           <form onSubmit={handlesubmit}>
@@ -271,7 +263,6 @@ const Question = () => {
             <button className="button maps">Go to Maps</button>
           </Link>
           <br />
-          {/* <input type="text" placeholder="Suggest a question" /> */}
         </div>
       )}
     </div>

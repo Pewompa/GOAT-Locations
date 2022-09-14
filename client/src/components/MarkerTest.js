@@ -28,38 +28,9 @@ const options = {
 //////////////////////////////////////////////////////////////////////////////////////////
 
 const MarkerTest = () => {
-  // useEffect(() => {
-  //   setMarkers((current) => [
-  //     ...current,
-  //     {
-  //       lat: event.latLng.lat(),
-  //     },
-  //   ]);
-  //   // }, []);
-  //   const [locations, setLocations] = useState([{}]);
-  //   const [markers, setMarkers] = useState([{}]);
-  //   useEffect(() => {
-  //     const goat = () => {
-  //       fetchLocations().then((data) => {
-  //         // setMarkers(data);
-  //         // console.log(data);
-  //         setMarkers({ lat: data[0].lat, lng: data[0].lng });
-  //         // setMarkers([data[0].lat, data[0].lng]);
-  //         // console.log(data[0].lat);
-  //       });
-  //       // const cords = {
-  //       //   lat: data[0].lat, lng: data[0].lng
-  //       // }
-  //     };
-  //     // console.log(markers);
-  //     goat();
-  //   }, []);
-  //   console.log(markers);
-
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyDAZNspVfSFWEByUcazI2mG6a-w9N_39qY',
     libraries,
-    // process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading maps';

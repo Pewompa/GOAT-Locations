@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import '../index.css';
 import '../App.css';
 import Timer from './Timer';
-// import '../style/question.css';
 
 const Deciding = () => {
   const handlesubmit = (e) => {
@@ -14,9 +13,6 @@ const Deciding = () => {
       <p id="herd">
         The herd is now deciding, the GOAT will be revealed at 9 p.m.
       </p>
-      {/* <Timer countDownTimeStampMS={1975080899}></Timer> */}
-
-      {/* This will have to go to maps */}
       <br />
 
       <form onSubmit={handlesubmit}>
@@ -36,8 +32,6 @@ const Deciding = () => {
       <Link to="/maps">
         <button className="button maps">Go to Maps</button>
       </Link>
-
-      {/* <input type="text" placeholder="Suggest a question" /> */}
     </div>
   );
 };

@@ -53,18 +53,8 @@ const Login = () => {
         history.push('/question');
       }
     }
-    // let auth = fetchLocationsId().then((data) => {
-    //   setId(data);
-    //   console.log(data);
-    // });
-    // if (auth) {
-    //   //change route to heard is now deciding
-    //   history.push('/deciding');
-    // } else {
-    //   history.push('/question');
-    // }
+
     console.log(id);
-    // console.log(data);
   };
 
   const onFailure = (res) => {
@@ -86,7 +76,6 @@ const Login = () => {
         cookiePolicy={'single_host_origin'}
         isSignedIn={true}
         uxMode="popup"
-        // redirectUri={'http://localhost:3000/question'}
       ></GoogleLogin>
     </div>
   );

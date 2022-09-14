@@ -30,14 +30,6 @@ const options = {
 //////////////////////////////////////////////////////////////////////////////////////////
 
 const Maps = () => {
-  // useEffect(() => {
-  //   setMarkers((current) => [
-  //     ...current,
-  //     {
-  //       lat: event.latLng.lat(),
-  //     },
-  //   ]);
-  // }, []);
   const [locations, setLocations] = useState([{}]);
   const [markers, setMarkers] = useState([{}]);
   const [markersClub, setMarkersClub] = useState([{}]);
@@ -315,74 +307,3 @@ const Maps = () => {
 };
 
 export default Maps;
-// import usePlacesAutocomplete, {
-//   getGeocode,
-//   getLatLng,
-// } from 'use-places-autocomplete';
-
-// import {
-//   Combobox,
-//   ComboboxInput,
-//   ComboboxList,
-//   ComboboxPopover,
-//   ComboboxOption,
-// } from '@reach/combobox';
-// import { ComboboxComponent } from '@syncfusion/ej2-react-dropdowns';
-// import '@reach/combobox/styles.css';
-
-// function Search() {
-//   const {
-//     ready,
-//     value,
-//     suggestions: { status, data },
-//     setValue,
-//     clearSuggestions,
-//   } = usePlacesAutocomplete({
-//     requestOptions: {
-//       location: {
-//         lat: () => 41.399149,
-//         lng: () => 2.1828661,
-//       },
-//       radius: 5000,
-//     },
-//   });
-//   return (
-//     <div>
-//       {/* aka form */}
-//       <Combobox
-//         onSelect={async (address) => {
-//           setValue(address, false);
-//           clearSuggestions();
-
-//           try {
-//             const results = await getGeocode({ address });
-//             //do post here?
-//             console.log(address);
-//             const { lat, lng } = await getLatLng(results[0]);
-//             //   panTo({ lat, lng });
-//           } catch (error) {
-//             console.log('😱 Error: ', error);
-//           }
-//         }}
-//       >
-//         {/* aka input */}
-//         <ComboboxInput
-//           value={value}
-//           onChange={(e) => {
-//             setValue(e.target.value);
-//           }}
-//           disabled={!ready}
-//           placeholder="Enter a location"
-//         ></ComboboxInput>
-//         <ComboboxPopover>
-//           <ComboboxList>
-//             {status === 'OK' &&
-//               data.map(({ id, description }) => (
-//                 <ComboboxOption key={id} value={description} />
-//               ))}
-//           </ComboboxList>
-//         </ComboboxPopover>
-//       </Combobox>
-//     </div>
-//   );
-// }
